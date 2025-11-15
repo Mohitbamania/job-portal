@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\MessageSendJob;
 use App\Mail\ContactMail;
 use App\Models\Job;
 use App\Models\JobCategory;
@@ -59,8 +60,12 @@ class HomeController extends Controller
             'message' => $request->message,
         ];
 
+        $mail = config('mail.contact_receiver');
 
-        Mail::to(config('mail.contact_receiver'))->send(new ContactMail($mailData));
+
+        Dispatch(new MessageSendJob($mailData, $mail));
+
+
 
         return redirect()->back()->with('success', 'Your message has been sent successfully!');
     }

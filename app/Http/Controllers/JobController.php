@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\CandidateApprovedJob;
+use App\Jobs\CandidateRejectJob;
+use App\Jobs\JobAppliedJob;
 use App\Mail\ApproveCandidate;
 use App\Mail\JobNotification;
 use App\Mail\RejectCandidate;
@@ -17,6 +20,7 @@ use App\Models\Job;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
+use App\Jobs\MailSendJob;
 use Session;
 
 class JobController extends Controller
@@ -138,7 +142,10 @@ class JobController extends Controller
             'job' => $job
         ];
 
-        Mail::to($employer->email)->send(new JobNotification($mailData));
+        $mail = $employer->email;
+
+        Dispatch(new JobAppliedJob($mailData, $mail));
+
 
         return response()->json([
 
@@ -337,7 +344,9 @@ class JobController extends Controller
             'interview_mode' => 'Google Meet (link will be shared)',
         ];
 
-        Mail::to($jobApplication->user->email)->send(new ApproveCandidate($mailData));
+        $mail = $jobApplication->user->email;
+
+        Dispatch(new CandidateApprovedJob($mailData, $mail));
 
 
         $jobApplication->update(['status' => 'Approved']);
@@ -368,7 +377,9 @@ class JobController extends Controller
             'job' => $jobApplication->jobDetail->title,
         ];
 
-        Mail::to($jobApplication->user->email)->send(new RejectCandidate($mailData));
+        $mail = $jobApplication->user->email;
+
+        Dispatch(new CandidateRejectJob($mailData, $mail));
 
 
         $jobApplication->update(['status' => 'Rejected']);

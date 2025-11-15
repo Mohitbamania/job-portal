@@ -18,7 +18,7 @@ Route::post('contactUs', [HomeController::class, 'contact'])->name('contact.subm
 Route::get('/privacy-policy', [HomeController::class, 'privacyPolicy'])->name('privacy.policy');
 Route::get('/terms-and-conditions', [HomeController::class, 'termsConditions'])->name('terms.conditions');
 
-Route::get('auth/google', [GoogleAuthController::class, 'redirect'])->name('auth.google');
+Route::get('auth/google', [GoogleAuthController::class, 'redijob/detailrect'])->name('auth.google');
 Route::get('auth/google/call-back', [GoogleAuthController::class, 'callback'])->name('auth.google.callback');
 
 Route::get('job', [JobController::class, 'job'])->name('job');

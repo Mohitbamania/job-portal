@@ -37,7 +37,7 @@
                 <a href="{{route('home')}}" class="navbar-brand d-flex align-items-center fw-bold fs-4">
 
                     <i class="bi bi-lightning-charge-fill me-2 text-gradient fs-2"></i>
-                    Career <span class="text-success">&nbsp;Vibe</span>
+                    Career <span class="text-success">&nbsp;Nest</span>
                 </a>
 
                 <!-- Toggler -->
@@ -158,7 +158,7 @@
                 <div class="col-md-4 text-center text-md-start">
                     <h3 class="fw-bold mb-3 brand-logo">
                         <i class="bi bi-lightning-charge-fill text-primary me-2"></i>
-                        Career<span class="text-success">&nbspVibe</span>
+                        Career<span class="text-success">&nbspNest</span>
                     </h3>
                     <p class="text-white-50">
                         Empowering job seekers and employers by creating opportunities that spark growth.
@@ -249,7 +249,7 @@
 
             <!-- Copyright -->
             <div class="text-center small text-white-50">
-                &copy; <span id="year"></span> Career Vibe. All Rights Reserved.
+                &copy; <span id="year"></span> Career Nest. All Rights Reserved.
             </div>
         </div>
     </footer>

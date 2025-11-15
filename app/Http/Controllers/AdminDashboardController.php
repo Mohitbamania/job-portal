@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\CandidateApprovedJob;
+use App\Jobs\CandidateRejectJob;
 use App\Models\Job;
 use App\Models\JobApplication;
 use App\Models\JobCategory;
@@ -490,7 +492,9 @@ class AdminDashboardController extends Controller
             'interview_mode' => 'Google Meet (link will be shared)',
         ];
 
-        Mail::to($jobApplication->user->email)->send(new ApproveCandidate($mailData));
+        $mail = $jobApplication->user->email;
+
+        Dispatch(new CandidateApprovedJob($mailData, $mail));
 
 
         $jobApplication->update(['status' => 'Approved']);
@@ -521,7 +525,9 @@ class AdminDashboardController extends Controller
             'job' => $jobApplication->jobDetail->title,
         ];
 
-        Mail::to($jobApplication->user->email)->send(new RejectCandidate($mailData));
+        $mail = $jobApplication->user->email;
+
+        Dispatch(new CandidateRejectJob($mailData, $mail));
 
 
         $jobApplication->update(['status' => 'Rejected']);
